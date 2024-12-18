@@ -26,9 +26,9 @@ const refreshToken = () => {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     }).then((res) => {
-        localStorage.setItem('access_token', res?.data?.accessToken);
+        localStorage.setItem('token', res?.data?.accessToken);
         if (res?.data?.refreshToken) {
-            localStorage.setItem('token', res?.data?.refreshToken);
+            localStorage.setItem('refreshToken', res?.data?.refreshToken);
         }
     }).catch(() => takeAction())
 }

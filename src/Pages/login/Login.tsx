@@ -10,9 +10,17 @@ export default function LoginPage() {
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
   const REDIRECT_URI = import.meta.env.VITE_REDIRECT; // Update with your actual redirect URI
   const SCOPES = [
-    "user-read-private",
-    "user-read-email",
-  ]; // Add more scopes as needed
+    "ugc-image-upload",
+    "user-read-playback-state", "user-modify-playback-state", "user-read-currently-playing",
+    "app-remote-control", "streaming",
+    "playlist-read-private", "playlist-read-collaborative", "playlist-modify-private", "playlist-modify-public",
+    "user-follow-modify", "user-follow-read",
+    "user-read-playback-position", "user-top-read", "user-read-recently-played",
+    "user-library-modify", "user-library-read",
+    "user-read-email", "user-read-private",
+    // "user-soa-link", "user-soa-unlink", "soa-manage-entitlements", "soa-manage-partner", "soa-create-partner"
+  ];
+  
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 
   const redirectToSpotify = () => {

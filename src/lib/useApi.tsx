@@ -8,8 +8,6 @@ export default function useApi(api: string, method: string, body?: any) {
     const [data, setData] = useState<any>(null)
     const [loader, setLoader] = useState<boolean>(false)
 
-    console.log(ApiHeader())
-
     useEffect(() => {
         setLoader(true)
         async function axiosResponse(method = 'get', body = {}) {
