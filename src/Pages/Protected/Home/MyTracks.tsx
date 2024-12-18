@@ -1,5 +1,4 @@
 import Loader from "@/components/Loader";
-import { Button } from "@/components/ui/button";
 import ApiHeader from "@/lib/ApiHeader";
 import ApiList from "@/lib/ApiList";
 import AxiosInterceptors from "@/lib/AxiosInterceptor";
