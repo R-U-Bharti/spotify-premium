@@ -7,44 +7,27 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
 
-  const getTokenFun = () => {
+  const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
+  const REDIRECT_URI = import.meta.env.VITE_REDIRECT; // Update with your actual redirect URI
+  const SCOPES = [
+    "user-read-private",
+    "user-read-email",
+  ]; // Add more scopes as needed
+  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 
-    let fd = new FormData();
-
-    fd.append("grant_type", import.meta.env.VITE_GRANT_TYPE)
-    fd.append("client_id", import.meta.env.VITE_CLIENT_ID)
-    fd.append("client_secret", import.meta.env.VITE_CLIENT_SECRET_ID)
-
-    let body = {
-      grant_type: import.meta.env.VITE_GRANT_TYPE,
-      client_id: import.meta.env.VITE_CLIENT_ID,
-      client_secret: import.meta.env.VITE_CLIENT_SECRET_ID,
-    }
-
-    axios.post("https://accounts.spotify.com/api/token",
-      qs.stringify(body),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        }
-      })
-      .then((res) => {
-        console.log('login response: ', res)
-        localStorage.setItem('token', res?.data?.access_token)
-        toast.success("Login Successfull")
-        navigate('/home')
-      })
-      .catch((err) => {
-        toast.error("Login error")
-        console.log("login error: ", err)
-      })
-  }
+  const redirectToSpotify = () => {
+    const authURL = `${AUTH_ENDPOINT}?response_type=code&client_id=${CLIENT_ID}&scope=${encodeURIComponent(
+      SCOPES.join(" ")
+    )}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}`;
+    window.location.href = authURL;
+  };
 
   const navigate = useNavigate();
   let token = localStorage.getItem('token')
+  let authCode = localStorage.getItem('authCode')
 
   useEffect(() => {
-    if (token)
+    if (authCode && token)
       navigate('/home')
   }, [])
 
@@ -61,7 +44,7 @@ export default function LoginPage() {
         </div>
 
         <div className="flex justify-center">
-          <button onClick={() => getTokenFun()} className="Btn">
+          <button onClick={() => redirectToSpotify()} className="Btn">
           </button>
         </div>
 

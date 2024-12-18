@@ -1,5 +1,6 @@
 import ApiList from "@/lib/ApiList"
 import useApi from "@/lib/useApi"
+import { useEffect } from "react"
 
 const HomeIndex = () => {
 

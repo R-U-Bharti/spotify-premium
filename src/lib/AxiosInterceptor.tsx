@@ -6,18 +6,19 @@ const AxiosInterceptors = axios.create();
 
 const takeAction = () => {
     toast.error("Unauthorized!! Login Again.")
-    // localStorage.clear()
-    // window.location.href = '/'
+    localStorage.clear()
+    window.location.href = '/'
 }
 
 const refreshToken = () => {
-    const refreshToken = localStorage.getItem('token');
+    const refreshToken = localStorage.getItem('refreshToken');
     const url = "https://accounts.spotify.com/api/token";
 
     let body = {
         grant_type: 'refresh_token',
         refresh_token: refreshToken,
-        client_id: import.meta.env.VITE_CLIENT_ID
+        client_id: import.meta.env.VITE_CLIENT_ID,
+        client_secret: import.meta.env.VITE_CLIENT_SECRET_ID,
     }
 
     axios.post(url, qs.stringify(body), {
